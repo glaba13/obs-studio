@@ -2,8 +2,10 @@
 
 if not exist "dependencies2017.zip" appveyor DownloadFile "%DependenciesUrl%"
 if not exist "%CefZip%" appveyor DownloadFile "%CefUrl%" -FileName "%CefZip%"
+if not exist "vlc.zip" appveyor DownloadFile %VLCUrl%
 7z x "%CefZip%"
 7z x dependencies2017.zip -odependencies2017
+7z x vlc.zip -ovlc
 
 cmake ^
 	-G"%CMakeGenerator%" ^
@@ -25,6 +27,7 @@ cmake ^
 	-A x64 ^
 	-DCMAKE_INSTALL_PREFIX="%InstallPath%" ^
 	-DDepsPath="%DepsPath64%" ^
+	-VLCPath="%VLCPath%" ^
 	-DCEF_ROOT_DIR="%CefPath%" ^
 	-DENABLE_UI=false ^
 	-DCOPIED_DEPENDENCIES=false ^
